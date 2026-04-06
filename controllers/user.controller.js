@@ -1,5 +1,6 @@
 // External Modules
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 // Internal Modules
 import { registerUser } from "../services/user.service.js";
@@ -17,9 +18,15 @@ export const register = async (req, res) => {
             role,
         });
 
+        const accessToken = jwt.sign(
+            JSON.stringify(user),
+            process.env.ACCESS_TOKEN_SECRET
+        );
+
         res.status(201).json({
             message: "The user has been registered successfully!",
             user,
+            accessToken,
         });
     } catch (error) {
         console.error(error.message);
