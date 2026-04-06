@@ -1,6 +1,10 @@
 // External Modules
 import { body, validationResult } from "express-validator";
 
+// Internal Modules
+import { getUser } from "../services/user.service.js";
+import { errorResponse } from "../utils/error.response.js";
+
 export const userValidationRules = [
     body("name").notEmpty().withMessage("The name is required"),
     body("email").isEmail().withMessage("The email must be a valide email"),
