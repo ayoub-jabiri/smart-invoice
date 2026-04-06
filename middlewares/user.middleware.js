@@ -9,6 +9,12 @@ export const userValidationRules = [
     body("name").notEmpty().withMessage("The name is required"),
     body("email").isEmail().withMessage("The email must be a valide email"),
     body("password").notEmpty().withMessage("The password is required"),
+    body("passwordConfirm").custom((value, { req }) => {
+        if (value != req.body.password) {
+            throw new Error("Password confirm is not correct");
+        }
+        return true;
+    }),
     body("role")
         .isIn(["admin", "client"])
         .withMessage(
