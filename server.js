@@ -14,7 +14,7 @@ dbConnect();
 
 app.use(express.json());
 
-app.use("/users", userRoutes);
+app.use("api/auth", userRoutes);
 
 app.listen(PORT, () => {
     console.log(`The server is listening on port ${PORT}`);
