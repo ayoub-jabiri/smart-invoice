@@ -22,6 +22,11 @@ export const userValidationRules = [
         ),
 ];
 
+export const loginValidationRules = [
+    body("email").isEmail().withMessage("The email must be a valide email"),
+    body("password").notEmpty().withMessage("The password is required"),
+];
+
 export const dataValidation = (req, res, next) => {
     const validation = validationResult(req);
 

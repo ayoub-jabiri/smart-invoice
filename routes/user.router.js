@@ -2,9 +2,10 @@
 import { Router } from "express";
 
 // Internal Modules
-import { register } from "../controllers/user.controller.js";
+import { register, login } from "../controllers/user.controller.js";
 import {
     userValidationRules,
+    loginValidationRules,
     dataValidation,
     registerCheck,
 } from "../middlewares/user.middleware.js";
@@ -18,5 +19,7 @@ userRoutes.post(
     registerCheck,
     register
 );
+
+userRoutes.post("/login", loginValidationRules, dataValidation, login);
 
 export default userRoutes;
