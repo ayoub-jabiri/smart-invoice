@@ -51,3 +51,12 @@ export const login = async (req, res) => {
         errorResponse(res, 500, "An internal error occured!");
     }
 };
+
+export const profile = async (req, res) => {
+    try {
+        res.status(200).json(req.user);
+    } catch (error) {
+        console.error(error.message);
+        errorResponse(res, 500, "An internal error occured!");
+    }
+};
