@@ -8,6 +8,7 @@ import {
     loginValidationRules,
     dataValidation,
     registerCheck,
+    loginCheck,
 } from "../middlewares/user.middleware.js";
 
 const userRoutes = Router();
@@ -20,6 +21,12 @@ userRoutes.post(
     register
 );
 
-userRoutes.post("/login", loginValidationRules, dataValidation, login);
+userRoutes.post(
+    "/login",
+    loginValidationRules,
+    dataValidation,
+    loginCheck,
+    login
+);
 
 export default userRoutes;
