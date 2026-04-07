@@ -8,7 +8,9 @@ import { errorResponse } from "../utils/error.response.js";
 
 export const userValidationRules = [
     body("name").notEmpty().withMessage("The name is required"),
-    body("email").isEmail().withMessage("The email must be a valide email"),
+    body("email")
+        .isEmail()
+        .withMessage("The email is required and must be a valide email"),
     body("password").notEmpty().withMessage("The password is required"),
     body("passwordConfirm").custom((value, { req }) => {
         if (value != req.body.password) {
@@ -24,7 +26,9 @@ export const userValidationRules = [
 ];
 
 export const loginValidationRules = [
-    body("email").isEmail().withMessage("The email must be a valide email"),
+    body("email")
+        .isEmail()
+        .withMessage("The email is required and must be a valide email"),
     body("password").notEmpty().withMessage("The password is required"),
 ];
 
