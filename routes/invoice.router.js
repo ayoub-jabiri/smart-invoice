@@ -20,6 +20,7 @@ import {
     dataValidation,
     invoiceExistenceCheck,
     verifyOwnership,
+    invoiceUpdateCheck,
     paymentAmountCheck,
 } from "../middlewares/invoice.middleware.js";
 import { supplierExistenceCheck } from "../middlewares/supplier.middleware.js";
@@ -52,6 +53,7 @@ invoiceRoutes.put(
     authorizationCheck(["client"]),
     invoiceExistenceCheck,
     verifyOwnership,
+    invoiceUpdateCheck,
     invoiceValidationRules,
     dataValidation,
     supplierExistenceCheck,

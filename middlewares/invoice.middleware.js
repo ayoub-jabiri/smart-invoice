@@ -72,6 +72,26 @@ export const verifyOwnership = async (req, res, next) => {
     }
 };
 
+export const invoiceUpdateCheck = async (req, res, next) => {
+    const { id } = req.params;
+
+    try {
+        const invoice = await getInvoice(id);
+
+        if (invoice.status == "paid")
+            return errorResponse(
+                res,
+                400,
+                "You cannot update a fully paid invoice"
+            );
+
+        next();
+    } catch (error) {
+        console.error(error);
+        errorResponse(res, 500, `An internal error: ${error.message}`);
+    }
+};
+
 export const paymentAmountCheck = async (req, res, next) => {
     const { id } = req.params;
     const { amount } = req.body;
