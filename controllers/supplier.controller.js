@@ -4,6 +4,7 @@ import {
     getClientSuppliers,
     getSupplier,
     updateSupplier,
+    deleteSupplier,
 } from "../services/supplier.service.js";
 import { errorResponse } from "../utils/error.response.js";
 
@@ -50,6 +51,20 @@ export const update = async (req, res) => {
         const supplier = await updateSupplier(id, name);
 
         res.json(supplier);
+    } catch (error) {
+        console.error(error);
+        errorResponse(res, 500, `An internal error: ${error.message}`);
+    }
+};
+
+export const deleteSp = async (req, res) => {
+    const { id } = req.params;
+    try {
+        await deleteSupplier(id);
+
+        res.json({
+            message: "The supplier has been deleted successfully",
+        });
     } catch (error) {
         console.error(error);
         errorResponse(res, 500, `An internal error: ${error.message}`);

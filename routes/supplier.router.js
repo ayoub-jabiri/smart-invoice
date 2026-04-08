@@ -7,6 +7,7 @@ import {
     getAllSuppliers,
     getSingleSupplier,
     update,
+    deleteSp,
 } from "../controllers/supplier.controller.js";
 import {
     authenticationCheck,
@@ -49,6 +50,14 @@ supplierRoutes.put(
     supplierValidationRules,
     dataValidation,
     update
+);
+
+supplierRoutes.delete(
+    "/:id",
+    authorizationCheck(["client"]),
+    supplierExistenceCheck,
+    verifyOwnership,
+    deleteSp
 );
 
 export default supplierRoutes;

@@ -16,3 +16,6 @@ export const updateSupplier = async (supplierId, newName) => {
 
     return await supplier.save();
 };
+
+export const deleteSupplier = async (supplierId) =>
+    await Supplier.deleteOne({ _id: supplierId });
