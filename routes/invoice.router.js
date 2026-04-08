@@ -7,7 +7,7 @@ import {
     getAllInvoices,
     getSingleInvoice,
     update,
-    deleteSp,
+    deleteIn,
 } from "../controllers/invoice.controller.js";
 import {
     authenticationCheck,
@@ -19,6 +19,7 @@ import {
     invoiceExistenceCheck,
     verifyOwnership,
 } from "../middlewares/invoice.middleware.js";
+import { supplierExistenceCheck } from "../middlewares/supplier.middleware.js";
 
 const invoiceRoutes = Router();
 
@@ -29,6 +30,7 @@ invoiceRoutes.post(
     authorizationCheck(["client"]),
     invoiceValidationRules,
     dataValidation,
+    supplierExistenceCheck,
     create
 );
 
@@ -57,7 +59,7 @@ invoiceRoutes.delete(
     authorizationCheck(["client"]),
     invoiceExistenceCheck,
     verifyOwnership,
-    deleteSp
+    deleteIn
 );
 
 export default invoiceRoutes;

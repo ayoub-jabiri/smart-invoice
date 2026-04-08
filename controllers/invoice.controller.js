@@ -9,10 +9,11 @@ import {
 import { errorResponse } from "../utils/error.response.js";
 
 export const create = async (req, res) => {
-    const { name } = req.body;
+    const { amount, supplierId } = req.body;
     try {
         const invoice = await createInvoice({
-            name,
+            amount,
+            supplierId,
             clientId: req.user._id,
         });
 

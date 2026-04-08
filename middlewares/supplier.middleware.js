@@ -20,13 +20,20 @@ export const dataValidation = (req, res, next) => {
 };
 
 export const supplierExistenceCheck = async (req, res, next) => {
-    const { id } = req.params;
+    const { baseUrl } = req;
 
-    if (!mongoose.Types.ObjectId.isValid(id))
+    let supplierId = "";
+
+    if (baseUrl.includes("suppliers")) {
+        supplierId = req.params.id;
+    } else if (baseUrl.includes("invoices")) {
+        supplierId = req.body.supplierId;
+    }
+    if (!mongoose.Types.ObjectId.isValid(supplierId))
         return errorResponse(res, 400, "Invalid supplier ID format");
 
     try {
-        const supplier = await getSupplier(id);
+        const supplier = await getSupplier(supplierId);
 
         if (!supplier) return errorResponse(res, 404, "Supplier not found!");
 
