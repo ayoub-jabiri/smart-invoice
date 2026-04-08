@@ -8,3 +8,11 @@ export const getClientSuppliers = async (clientId) =>
 
 export const getSupplier = async (supplierId) =>
     await Supplier.findById(supplierId);
+
+export const updateSupplier = async (supplierId, newName) => {
+    const supplier = await Supplier.findById(supplierId);
+
+    supplier.name = newName;
+
+    return await supplier.save();
+};

@@ -6,6 +6,7 @@ import {
     create,
     getAllSuppliers,
     getSingleSupplier,
+    update,
 } from "../controllers/supplier.controller.js";
 import {
     authenticationCheck,
@@ -31,12 +32,23 @@ supplierRoutes.post(
 );
 
 supplierRoutes.get("/", authorizationCheck(["client"]), getAllSuppliers);
+
 supplierRoutes.get(
     "/:id",
     authorizationCheck(["client"]),
     supplierExistenceCheck,
     verifyOwnership,
     getSingleSupplier
+);
+
+supplierRoutes.put(
+    "/:id",
+    authorizationCheck(["client"]),
+    supplierExistenceCheck,
+    verifyOwnership,
+    supplierValidationRules,
+    dataValidation,
+    update
 );
 
 export default supplierRoutes;
