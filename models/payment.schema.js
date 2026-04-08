@@ -5,6 +5,11 @@ const paymentSchema = new Schema({
         type: Number,
         required: true,
     },
+    invoiceId: {
+        type: Schema.Types.ObjectId,
+        ref: "Invoice",
+        required: true,
+    },
     clientId: {
         type: Schema.Types.ObjectId,
         ref: "User",

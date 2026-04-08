@@ -79,16 +79,17 @@ export const paymentAmountCheck = async (req, res, next) => {
     try {
         const invoice = await getInvoice(id);
 
+        // Check if invoice is already paid
+        if (invoice.status == "paid")
+            return errorResponse(res, 400, "The invoice is already paid");
+
         // Check if the payment amount overrides the invoice amount
-        if (+amount > invoice.amount)
+        const restAmount = invoice.amount - invoice.currentAmount;
+        if (+amount > restAmount)
             return errorResponse(
                 res,
                 400,
-                `The operation cannot be done because the payment amount overrides the invoice amount, which is: '${
-                    invoice.amount
-                }'. Only the amount of '${
-                    invoice.amount - invoice.currentAmount
-                }' is needed to to fully pay this invoice`
+                `The operation cannot be done because the payment amount overrides the invoice amount, which is: '${invoice.amount}'. Only the amount of '${restAmount}' is needed to to fully pay this invoice`
             );
 
         next();

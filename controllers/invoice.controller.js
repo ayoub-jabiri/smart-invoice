@@ -5,6 +5,7 @@ import {
     getInvoice,
     updateInvoice,
     deleteInvoice,
+    invoicePayment,
 } from "../services/invoice.service.js";
 import { errorResponse } from "../utils/error.response.js";
 
@@ -74,11 +75,13 @@ export const deleteIn = async (req, res) => {
 
 export const payment = async (req, res) => {
     const { id } = req.params;
+    const { amount } = req.body;
     try {
-        // await deleteInvoice(id);
+        const data = await invoicePayment(id, amount);
 
         res.json({
-            message: "The invoice",
+            message: "The invoice payment operation has been done successfully",
+            data,
         });
     } catch (error) {
         console.error(error);
