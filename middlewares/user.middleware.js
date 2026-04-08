@@ -52,8 +52,8 @@ export const registerCheck = async (req, res, next) => {
 
         next();
     } catch (error) {
-        console.error(error.message);
-        errorResponse(res, 500, "An internal error");
+        console.error(error);
+        errorResponse(res, 500, `An internal error: ${error.message}`);
     }
 };
 
@@ -72,7 +72,7 @@ export const loginCheck = async (req, res, next) => {
 
         next();
     } catch (error) {
-        console.error(error.message);
-        errorResponse(res, 500, "An internal error");
+        console.error(error);
+        errorResponse(res, 500, `An internal error: ${error.message}`);
     }
 };

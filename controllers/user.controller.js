@@ -47,8 +47,8 @@ export const login = async (req, res) => {
             accessToken,
         });
     } catch (error) {
-        console.error(error.message);
-        errorResponse(res, 500, "An internal error occured!");
+        console.error(error);
+        errorResponse(res, 500, `An internal error: ${error.message}`);
     }
 };
 
@@ -56,7 +56,7 @@ export const profile = async (req, res) => {
     try {
         res.status(200).json(req.user);
     } catch (error) {
-        console.error(error.message);
-        errorResponse(res, 500, "An internal error occured!");
+        console.error(error);
+        errorResponse(res, 500, `An internal error: ${error.message}`);
     }
 };

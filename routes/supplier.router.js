@@ -2,7 +2,7 @@
 import { Router } from "express";
 
 // Internal Modules
-import { create } from "../controllers/supplier.controller.js";
+import { create, getAllSuppliers } from "../controllers/supplier.controller.js";
 import {
     authenticationCheck,
     authorizationCheck,
@@ -23,5 +23,7 @@ supplierRoutes.post(
     dataValidation,
     create
 );
+
+supplierRoutes.get("/", authorizationCheck(["client"]), getAllSuppliers);
 
 export default supplierRoutes;
