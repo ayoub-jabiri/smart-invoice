@@ -34,7 +34,7 @@ export const invoicePayment = async (invoiceId, paymentAmount) => {
 
     await invoice.save();
 
-    const payment = Payment.create({
+    const payment = await Payment.create({
         amount: paymentAmount,
         invoiceId: invoice._id,
         clientId: invoice.clientId,

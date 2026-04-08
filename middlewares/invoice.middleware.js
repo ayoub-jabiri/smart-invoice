@@ -103,7 +103,7 @@ export const invoiceDeleteCheck = async (req, res, next) => {
             return errorResponse(
                 res,
                 400,
-                "You cannot delete an invoice that is associated with payments"
+                "You cannot delete this invoice because it is associated with payments"
             );
 
         next();

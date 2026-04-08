@@ -7,6 +7,7 @@ import {
     deleteInvoice,
     invoicePayment,
 } from "../services/invoice.service.js";
+import { getInvoicePayments } from "../services/payment.service.js";
 import { errorResponse } from "../utils/error.response.js";
 
 export const create = async (req, res) => {
@@ -82,6 +83,20 @@ export const payment = async (req, res) => {
         res.json({
             message: "The invoice payment operation has been done successfully",
             data,
+        });
+    } catch (error) {
+        console.error(error);
+        errorResponse(res, 500, `An internal error: ${error.message}`);
+    }
+};
+
+export const getPayment = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const payments = await getInvoicePayments({ invoiceId: id });
+
+        res.json({
+            payments,
         });
     } catch (error) {
         console.error(error);

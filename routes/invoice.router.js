@@ -9,6 +9,7 @@ import {
     update,
     deleteIn,
     payment,
+    getPayment,
 } from "../controllers/invoice.controller.js";
 import {
     authenticationCheck,
@@ -79,6 +80,14 @@ invoiceRoutes.post(
     dataValidation,
     paymentAmountCheck,
     payment
+);
+
+invoiceRoutes.get(
+    "/:id/payments",
+    authorizationCheck(["client"]),
+    invoiceExistenceCheck,
+    verifyOwnership,
+    getPayment
 );
 
 export default invoiceRoutes;
