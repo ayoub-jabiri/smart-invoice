@@ -37,3 +37,23 @@ export const supplierExistenceCheck = async (req, res, next) => {
         errorResponse(res, 500, `An internal error: ${error.message}`);
     }
 };
+
+export const verifyOwnership = async (req, res, next) => {
+    const { id } = req.params;
+
+    try {
+        const supplier = await getSupplier(id);
+
+        if (supplier.clientId != req.user._id)
+            return errorResponse(
+                res,
+                403,
+                "You don't have the right to access or manipulate this supplier!"
+            );
+
+        next();
+    } catch (error) {
+        console.error(error);
+        errorResponse(res, 500, `An internal error: ${error.message}`);
+    }
+};

@@ -15,6 +15,7 @@ import {
     supplierValidationRules,
     dataValidation,
     supplierExistenceCheck,
+    verifyOwnership,
 } from "../middlewares/supplier.middleware.js";
 
 const supplierRoutes = Router();
@@ -34,6 +35,7 @@ supplierRoutes.get(
     "/:id",
     authorizationCheck(["client"]),
     supplierExistenceCheck,
+    verifyOwnership,
     getSingleSupplier
 );
 
