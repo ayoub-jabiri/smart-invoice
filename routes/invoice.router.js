@@ -21,6 +21,7 @@ import {
     invoiceExistenceCheck,
     verifyOwnership,
     invoiceUpdateCheck,
+    invoiceDeleteCheck,
     paymentAmountCheck,
 } from "../middlewares/invoice.middleware.js";
 import { supplierExistenceCheck } from "../middlewares/supplier.middleware.js";
@@ -65,6 +66,7 @@ invoiceRoutes.delete(
     authorizationCheck(["client"]),
     invoiceExistenceCheck,
     verifyOwnership,
+    invoiceDeleteCheck,
     deleteIn
 );
 

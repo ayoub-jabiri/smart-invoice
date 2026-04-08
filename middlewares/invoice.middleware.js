@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 
 // Internal Modules
 import { getInvoice } from "../services/invoice.service.js";
+import { getInvoicePayments } from "../services/payment.service.js";
 import { errorResponse } from "../utils/error.response.js";
 
 export const invoiceValidationRules = [
@@ -83,6 +84,26 @@ export const invoiceUpdateCheck = async (req, res, next) => {
                 res,
                 400,
                 "You cannot update a fully paid invoice"
+            );
+
+        next();
+    } catch (error) {
+        console.error(error);
+        errorResponse(res, 500, `An internal error: ${error.message}`);
+    }
+};
+
+export const invoiceDeleteCheck = async (req, res, next) => {
+    const { id } = req.params;
+
+    try {
+        const payments = await getInvoicePayments({ invoiceId: id });
+
+        if (payments.length)
+            return errorResponse(
+                res,
+                400,
+                "You cannot delete an invoice that is associated with payments"
             );
 
         next();
