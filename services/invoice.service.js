@@ -8,10 +8,11 @@ export const getClientInvoices = async (clientId) =>
 export const getInvoice = async (invoiceId) =>
     await Invoice.findById(invoiceId);
 
-export const updateInvoice = async (invoiceId, newName) => {
+export const updateInvoice = async (invoiceId, newInvoice) => {
     const invoice = await Invoice.findById(invoiceId);
 
-    invoice.name = newName;
+    invoice.amount = newInvoice.amount;
+    invoice.supplierId = newInvoice.supplierId;
 
     return await invoice.save();
 };

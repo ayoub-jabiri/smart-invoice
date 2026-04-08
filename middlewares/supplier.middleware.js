@@ -29,6 +29,7 @@ export const supplierExistenceCheck = async (req, res, next) => {
     } else if (baseUrl.includes("invoices")) {
         supplierId = req.body.supplierId;
     }
+
     if (!mongoose.Types.ObjectId.isValid(supplierId))
         return errorResponse(res, 400, "Invalid supplier ID format");
 

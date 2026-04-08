@@ -51,6 +51,7 @@ invoiceRoutes.put(
     verifyOwnership,
     invoiceValidationRules,
     dataValidation,
+    supplierExistenceCheck,
     update
 );
 

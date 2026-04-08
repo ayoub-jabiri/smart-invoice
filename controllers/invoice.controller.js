@@ -47,9 +47,9 @@ export const getSingleInvoice = async (req, res) => {
 
 export const update = async (req, res) => {
     const { id } = req.params;
-    const { name } = req.body;
+    const { amount, supplierId } = req.body;
     try {
-        const invoice = await updateInvoice(id, name);
+        const invoice = await updateInvoice(id, { amount, supplierId });
 
         res.json(invoice);
     } catch (error) {
