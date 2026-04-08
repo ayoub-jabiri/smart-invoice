@@ -6,6 +6,7 @@ import express from "express";
 import { dbConnect } from "./config/db.js";
 import userRoutes from "./routes/user.router.js";
 import supplierRoutes from "./routes/supplier.router.js";
+import invoiceRoutes from "./routes/invoice.router.js";
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.json());
 
 app.use("/api/auth", userRoutes);
 app.use("/api/suppliers", supplierRoutes);
+app.use("/api/invoices", invoiceRoutes);
 
 app.listen(PORT, () => {
     console.log(`The server is listening on port ${PORT}`);

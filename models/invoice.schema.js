@@ -7,8 +7,8 @@ const invoiceSchema = new Schema({
     },
     status: {
         type: String,
-        required: true,
         enum: ["unpaid", "partially_paid", "paid"],
+        default: "unpaid",
     },
     clientId: {
         type: Schema.Types.ObjectId,
