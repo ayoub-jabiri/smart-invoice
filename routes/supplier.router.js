@@ -2,7 +2,11 @@
 import { Router } from "express";
 
 // Internal Modules
-import { create, getAllSuppliers } from "../controllers/supplier.controller.js";
+import {
+    create,
+    getAllSuppliers,
+    getSingleSupplier,
+} from "../controllers/supplier.controller.js";
 import {
     authenticationCheck,
     authorizationCheck,
@@ -10,6 +14,7 @@ import {
 import {
     supplierValidationRules,
     dataValidation,
+    supplierExistenceCheck,
 } from "../middlewares/supplier.middleware.js";
 
 const supplierRoutes = Router();
@@ -25,5 +30,11 @@ supplierRoutes.post(
 );
 
 supplierRoutes.get("/", authorizationCheck(["client"]), getAllSuppliers);
+supplierRoutes.get(
+    "/:id",
+    authorizationCheck(["client"]),
+    supplierExistenceCheck,
+    getSingleSupplier
+);
 
 export default supplierRoutes;

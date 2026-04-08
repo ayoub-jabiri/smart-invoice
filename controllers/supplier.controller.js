@@ -2,6 +2,7 @@
 import {
     createSupplier,
     getClientSuppliers,
+    getSupplier,
 } from "../services/supplier.service.js";
 import { errorResponse } from "../utils/error.response.js";
 
@@ -24,6 +25,17 @@ export const getAllSuppliers = async (req, res) => {
     try {
         const suppliers = await getClientSuppliers(req.user._id);
         res.json(suppliers);
+    } catch (error) {
+        console.error(error);
+        errorResponse(res, 500, `An internal error: ${error.message}`);
+    }
+};
+
+export const getSingleSupplier = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const supplier = await getSupplier(id);
+        res.json(supplier);
     } catch (error) {
         console.error(error);
         errorResponse(res, 500, `An internal error: ${error.message}`);

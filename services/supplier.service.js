@@ -5,3 +5,6 @@ export const createSupplier = async (supplier) =>
 
 export const getClientSuppliers = async (clientId) =>
     await Supplier.find({ clientId });
+
+export const getSupplier = async (supplierId) =>
+    await Supplier.findById(supplierId);
