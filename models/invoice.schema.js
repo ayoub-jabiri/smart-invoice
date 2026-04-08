@@ -5,6 +5,10 @@ const invoiceSchema = new Schema({
         type: Number,
         required: true,
     },
+    currentAmount: {
+        type: Number,
+        default: 0,
+    },
     status: {
         type: String,
         enum: ["unpaid", "partially_paid", "paid"],

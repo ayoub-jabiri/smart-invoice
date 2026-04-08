@@ -71,3 +71,17 @@ export const deleteIn = async (req, res) => {
         errorResponse(res, 500, `An internal error: ${error.message}`);
     }
 };
+
+export const payment = async (req, res) => {
+    const { id } = req.params;
+    try {
+        // await deleteInvoice(id);
+
+        res.json({
+            message: "The invoice",
+        });
+    } catch (error) {
+        console.error(error);
+        errorResponse(res, 500, `An internal error: ${error.message}`);
+    }
+};

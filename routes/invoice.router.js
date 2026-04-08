@@ -8,6 +8,7 @@ import {
     getSingleInvoice,
     update,
     deleteIn,
+    payment,
 } from "../controllers/invoice.controller.js";
 import {
     authenticationCheck,
@@ -15,9 +16,11 @@ import {
 } from "../middlewares/auth.middleware.js";
 import {
     invoiceValidationRules,
+    paymentValidationRules,
     dataValidation,
     invoiceExistenceCheck,
     verifyOwnership,
+    paymentAmountCheck,
 } from "../middlewares/invoice.middleware.js";
 import { supplierExistenceCheck } from "../middlewares/supplier.middleware.js";
 
@@ -61,6 +64,17 @@ invoiceRoutes.delete(
     invoiceExistenceCheck,
     verifyOwnership,
     deleteIn
+);
+
+invoiceRoutes.post(
+    "/:id/payments",
+    authorizationCheck(["client"]),
+    invoiceExistenceCheck,
+    verifyOwnership,
+    paymentValidationRules,
+    dataValidation,
+    paymentAmountCheck,
+    payment
 );
 
 export default invoiceRoutes;
