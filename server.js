@@ -5,6 +5,7 @@ import express from "express";
 // Internal Modules
 import { dbConnect } from "./config/db.js";
 import userRoutes from "./routes/user.router.js";
+import supplierRoutes from "./routes/supplier.router.js";
 
 const app = express();
 
@@ -15,6 +16,7 @@ dbConnect();
 app.use(express.json());
 
 app.use("/api/auth", userRoutes);
+app.use("/api/suppliers", supplierRoutes);
 
 app.listen(PORT, () => {
     console.log(`The server is listening on port ${PORT}`);
