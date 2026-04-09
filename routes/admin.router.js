@@ -2,10 +2,7 @@
 import { Router } from "express";
 
 // Internal Modules
-import {
-    clients,
-    getClientSuppliers,
-} from "../controllers/admin.controller.js";
+import { clients, clientInfo } from "../controllers/admin.controller.js";
 import {
     authenticationCheck,
     authorizationCheck,
@@ -16,10 +13,23 @@ const adminRoutes = Router();
 adminRoutes.use(authenticationCheck);
 
 adminRoutes.get("/clients", authorizationCheck(["admin"]), clients);
+
 adminRoutes.get(
     "/clients/:id/suppliers",
     authorizationCheck(["admin"]),
-    getClientSuppliers
+    clientInfo
+);
+
+adminRoutes.get(
+    "/clients/:id/invoices",
+    authorizationCheck(["admin"]),
+    clientInfo
+);
+
+adminRoutes.get(
+    "/clients/:id/payments",
+    authorizationCheck(["admin"]),
+    clientInfo
 );
 
 export default adminRoutes;

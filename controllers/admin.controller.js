@@ -13,10 +13,13 @@ export const clients = async (req, res) => {
     }
 };
 
-export const getClientSuppliers = async (req, res) => {
+export const clientInfo = async (req, res) => {
     const { id } = req.params;
+
+    const infoType = req.url.split("/");
+
     try {
-        const info = await getClientInfo("suppliers", id);
+        const info = await getClientInfo(infoType[infoType.length - 1], id);
 
         res.json(info);
     } catch (error) {
