@@ -1,6 +1,7 @@
 // External Modules
 import { body, validationResult } from "express-validator";
 import bcrypt from "bcrypt";
+import mongoose from "mongoose";
 
 // Internal Modules
 import { getUser } from "../services/user.service.js";
@@ -69,6 +70,24 @@ export const loginCheck = async (req, res, next) => {
         // Check if the password is correct
         if (!(await bcrypt.compare(password, user.password)))
             return errorResponse(res, 401, "The password is not correct!");
+
+        next();
+    } catch (error) {
+        console.error(error);
+        errorResponse(res, 500, `An internal error: ${error.message}`);
+    }
+};
+
+export const clientExistenceCheck = async (req, res, next) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id))
+        return errorResponse(res, 400, "Invalid client ID format");
+
+    try {
+        const user = await getUser({ _id: id });
+
+        if (!user) return errorResponse(res, 404, "Client not found!");
 
         next();
     } catch (error) {
