@@ -6,6 +6,7 @@ import {
     updateSupplier,
     deleteSupplier,
 } from "../services/supplier.service.js";
+import { getSupplierStats } from "../services/stats.service.js";
 import { errorResponse } from "../utils/error.response.js";
 
 export const create = async (req, res) => {
@@ -65,6 +66,17 @@ export const deleteSp = async (req, res) => {
         res.json({
             message: "The supplier has been deleted successfully",
         });
+    } catch (error) {
+        console.error(error);
+        errorResponse(res, 500, `An internal error: ${error.message}`);
+    }
+};
+
+export const supplierStats = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const stats = await getSupplierStats(id);
+        res.json(stats);
     } catch (error) {
         console.error(error);
         errorResponse(res, 500, `An internal error: ${error.message}`);
