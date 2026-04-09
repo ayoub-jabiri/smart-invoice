@@ -27,8 +27,9 @@ export const create = async (req, res) => {
 };
 
 export const getAllInvoices = async (req, res) => {
+    const invoicesLimit = req.query.limit || 0;
     try {
-        const invoice = await getClientInvoices(req.user._id);
+        const invoice = await getClientInvoices(req.user._id, invoicesLimit);
         res.json(invoice);
     } catch (error) {
         console.error(error);

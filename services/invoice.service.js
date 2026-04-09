@@ -3,8 +3,8 @@ import Payment from "../models/payment.schema.js";
 
 export const createInvoice = async (invoice) => await Invoice.create(invoice);
 
-export const getClientInvoices = async (clientId) =>
-    await Invoice.find({ clientId });
+export const getClientInvoices = async (clientId, invoicesLimit) =>
+    await Invoice.find({ clientId }).limit(invoicesLimit);
 
 export const getInvoice = async (invoiceId) =>
     await Invoice.findById(invoiceId);
