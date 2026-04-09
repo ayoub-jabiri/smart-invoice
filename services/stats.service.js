@@ -25,6 +25,25 @@ export const getSupplierStats = async (supplierId) => {
     return { amounts, invoices };
 };
 
-export const getDashboardStats = async (supplierId) => {
-    return "test";
+export const getDashboardStats = async (clientId) => {
+    const invoices = await Invoice.countDocuments({ clientId });
+
+    const data = await Payment.aggregate([
+        {
+            $match: { clientId: new mongoose.Types.ObjectId(clientId) },
+        },
+        {
+            $group: {
+                _id: null,
+                amounts: { $sum: "$amount" },
+            },
+        },
+    ]);
+    const expenses = data.length ? data[0].amounts : 0;
+
+    const delays = await Invoice.countDocuments({
+        status: ["unpaid", "partially_paid"],
+    });
+
+    return { invoices, expenses, delays };
 };
