@@ -24,3 +24,7 @@ export const getSupplierStats = async (supplierId) => {
 
     return { amounts, invoices };
 };
+
+export const getDashboardStats = async (supplierId) => {
+    return "test";
+};
