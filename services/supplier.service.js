@@ -3,7 +3,25 @@ import Supplier from "../models/supplier.schema.js";
 export const createSupplier = async (supplier) =>
     await Supplier.create(supplier);
 
-export const getClientSuppliers = async (query) => await Supplier.find(query);
+export const getClientSuppliers = async (
+    clientId,
+    supplierName,
+    suppliersToSkip,
+    suppliersLimit
+) => {
+    if (supplierName) {
+        return await Supplier.find({
+            clientId,
+            name: supplierName,
+        })
+            .skip(suppliersToSkip)
+            .limit(suppliersLimit);
+    } else {
+        return await Supplier.find({ clientId })
+            .skip(suppliersToSkip)
+            .limit(suppliersLimit);
+    }
+};
 
 export const getSupplier = async (supplierId) =>
     await Supplier.findById(supplierId);

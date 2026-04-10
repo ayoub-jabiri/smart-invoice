@@ -25,19 +25,27 @@ export const create = async (req, res) => {
 };
 
 export const getAllSuppliers = async (req, res) => {
+    // Filter Options
+    const name = req.query.name || undefined;
+
+    // Pagination Options
+    const currentPage = +req.query.page || 1;
+    const suppliersLimit = +req.query.limit || 15;
+    const suppliersToSkip = (currentPage - 1) * suppliersLimit;
+
     try {
-        let suppliers = [];
+        const suppliers = await getClientSuppliers(
+            req.user._id,
+            name,
+            suppliersToSkip,
+            suppliersLimit
+        );
 
-        if (req.query.name) {
-            suppliers = await getClientSuppliers({
-                clientId: req.user._id,
-                name: req.query.name,
-            });
-        } else {
-            suppliers = await getClientSuppliers({ clientId: req.user._id });
-        }
-
-        res.json(suppliers);
+        res.json({
+            currentPage,
+            suppliersLimit,
+            suppliers,
+        });
     } catch (error) {
         console.error(error);
         errorResponse(res, 500, `An internal error: ${error.message}`);
