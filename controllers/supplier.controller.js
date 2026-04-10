@@ -26,7 +26,17 @@ export const create = async (req, res) => {
 
 export const getAllSuppliers = async (req, res) => {
     try {
-        const suppliers = await getClientSuppliers(req.user._id);
+        let suppliers = [];
+
+        if (req.query.name) {
+            suppliers = await getClientSuppliers({
+                clientId: req.user._id,
+                name: req.query.name,
+            });
+        } else {
+            suppliers = await getClientSuppliers({ clientId: req.user._id });
+        }
+
         res.json(suppliers);
     } catch (error) {
         console.error(error);
