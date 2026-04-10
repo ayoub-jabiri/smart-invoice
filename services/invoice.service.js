@@ -3,8 +3,25 @@ import Payment from "../models/payment.schema.js";
 
 export const createInvoice = async (invoice) => await Invoice.create(invoice);
 
-export const getClientInvoices = async (clientId, invoicesLimit) =>
-    await Invoice.find({ clientId }).limit(invoicesLimit);
+export const getClientInvoices = async (
+    clientId,
+    status,
+    invoicesToSkip,
+    invoicesLimit
+) => {
+    if (status) {
+        return await Invoice.find({
+            clientId,
+            status,
+        })
+            .skip(invoicesToSkip)
+            .limit(invoicesLimit);
+    } else {
+        return await Invoice.find({ clientId })
+            .skip(invoicesToSkip)
+            .limit(invoicesLimit);
+    }
+};
 
 export const getInvoice = async (invoiceId) =>
     await Invoice.findById(invoiceId);

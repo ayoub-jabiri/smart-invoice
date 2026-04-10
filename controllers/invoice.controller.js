@@ -27,10 +27,27 @@ export const create = async (req, res) => {
 };
 
 export const getAllInvoices = async (req, res) => {
-    const invoicesLimit = req.query.limit || 0;
+    // Filter Options
+    const status = req.query.status || undefined;
+
+    // Pagination Options
+    const currentPage = +req.query.page || 1;
+    const invoicesLimit = +req.query.limit || 15;
+    const invoicesToSkip = (currentPage - 1) * invoicesLimit;
+
     try {
-        const invoice = await getClientInvoices(req.user._id, invoicesLimit);
-        res.json(invoice);
+        const invoice = await getClientInvoices(
+            req.user._id,
+            status,
+            invoicesToSkip,
+            invoicesLimit
+        );
+
+        res.json({
+            currentPage,
+            invoicesLimit,
+            invoice,
+        });
     } catch (error) {
         console.error(error);
         errorResponse(res, 500, `An internal error: ${error.message}`);
