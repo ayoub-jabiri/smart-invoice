@@ -18,11 +18,11 @@ In the day-to-day operations of businesses and freelancers, managing supplier in
 
 ### UML Class Diagram
 
-![UML Class Diagram](./assests//smart-Invoice-uml-class-diagram.png)
+![UML Class Diagram](./assets//smart-Invoice-uml-class-diagram.png)
 
 ### UML Use Case Diagram
 
-![UML Use Case Diagram](./assests//smart-Invoice-uml-use-case.png.png)
+![UML Use Case Diagram](./assets//smart-Invoice-uml-use-case.png)
 
 ## 🛠️ Tech Stack
 
