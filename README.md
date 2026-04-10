@@ -14,6 +14,16 @@ In the day-to-day operations of businesses and freelancers, managing supplier in
 -   **Analytics & Dashboard**: Real-time statistics per supplier and overall financial overview.
 -   **Admin Oversight**: Dedicated administrative routes to monitor platform-wide activity.
 
+## UML Diagrams
+
+### UML Class Diagram
+
+![UML Class Diagram](./assests//smart-Invoice-uml-class-diagram.png)
+
+### UML Use Case Diagram
+
+![UML Use Case Diagram](./assests//smart-Invoice-uml-use-case.png.png)
+
 ## 🛠️ Tech Stack
 
 -   **Runtime**: Node.js
