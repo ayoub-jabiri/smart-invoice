@@ -6,18 +6,20 @@ export const createInvoice = async (invoice) => await Invoice.create(invoice);
 export const getClientInvoices = async (
     clientId,
     status,
+    supplierId,
     invoicesToSkip,
     invoicesLimit
 ) => {
-    if (status) {
+    if (supplierId) {
         return await Invoice.find({
             clientId,
             status,
+            supplierId,
         })
             .skip(invoicesToSkip)
             .limit(invoicesLimit);
     } else {
-        return await Invoice.find({ clientId })
+        return await Invoice.find({ clientId, status })
             .skip(invoicesToSkip)
             .limit(invoicesLimit);
     }

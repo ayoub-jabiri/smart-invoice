@@ -28,7 +28,8 @@ export const create = async (req, res) => {
 
 export const getAllInvoices = async (req, res) => {
     // Filter Options
-    const status = req.query.status || undefined;
+    const status = req.query.status || ["unpaid", "partially_paid", "paid"];
+    const supplierId = req.query.supplier || undefined;
 
     // Pagination Options
     const currentPage = +req.query.page || 1;
@@ -39,6 +40,7 @@ export const getAllInvoices = async (req, res) => {
         const invoice = await getClientInvoices(
             req.user._id,
             status,
+            supplierId,
             invoicesToSkip,
             invoicesLimit
         );
